@@ -513,8 +513,9 @@ async function createRectangle(params: any): Promise<OperationResult> {
       const positionResult = handleNodePositioning(rect, { x, y }, { width, height }, parentContainer);
       
       await applyCommonNodeProperties(rect, params, i);
-      
-      const response = formatNodeResponse(rect);
+
+      const detail = params.detail || 'standard';
+      const response = createNodeData(rect, detail, 0, params.parentId);
       if (positionResult.warning) response.warning = positionResult.warning;
       if (positionResult.positionReason) response.positionReason = positionResult.positionReason;
       
@@ -551,8 +552,9 @@ async function createEllipse(params: any): Promise<OperationResult> {
       const positionResult = handleNodePositioning(ellipse, { x, y }, { width, height }, parentContainer);
       
       await applyCommonNodeProperties(ellipse, params, i);
-      
-      const response = formatNodeResponse(ellipse);
+
+      const detail = params.detail || 'standard';
+      const response = createNodeData(ellipse, detail, 0, params.parentId);
       if (positionResult.warning) response.warning = positionResult.warning;
       if (positionResult.positionReason) response.positionReason = positionResult.positionReason;
       
@@ -592,8 +594,9 @@ async function createFrame(params: any): Promise<OperationResult> {
       await applyFrameProperties(frame, params, i);
       
       await applyCommonNodeProperties(frame, params, i);
-      
-      const response = formatNodeResponse(frame);
+
+      const detail = params.detail || 'standard';
+      const response = createNodeData(frame, detail, 0, params.parentId);
       if (positionResult.warning) response.warning = positionResult.warning;
       if (positionResult.positionReason) response.positionReason = positionResult.positionReason;
       
@@ -632,10 +635,11 @@ async function createSection(params: any): Promise<OperationResult> {
       
       // Apply section-specific properties
       await applySectionProperties(section, params, i);
-      
+
       await applyCommonNodeProperties(section, params, i);
-      
-      const response = formatNodeResponse(section);
+
+      const detail = params.detail || 'standard';
+      const response = createNodeData(section, detail, 0, params.parentId);
       if (positionResult.warning) response.warning = positionResult.warning;
       if (positionResult.positionReason) response.positionReason = positionResult.positionReason;
       
@@ -672,8 +676,9 @@ async function createSlice(params: any): Promise<OperationResult> {
       const positionResult = handleNodePositioning(slice, { x, y }, { width, height }, parentContainer);
       
       await applyCommonNodeProperties(slice, params, i);
-      
-      const response = formatNodeResponse(slice);
+
+      const detail = params.detail || 'standard';
+      const response = createNodeData(slice, detail, 0, params.parentId);
       if (positionResult.warning) response.warning = positionResult.warning;
       if (positionResult.positionReason) response.positionReason = positionResult.positionReason;
       
@@ -713,8 +718,9 @@ async function createStar(params: any): Promise<OperationResult> {
       await applyStarProperties(star, params, i);
       
       await applyCommonNodeProperties(star, params, i);
-      
-      const response = formatNodeResponse(star);
+
+      const detail = params.detail || 'standard';
+      const response = createNodeData(star, detail, 0, params.parentId);
       if (positionResult.warning) response.warning = positionResult.warning;
       if (positionResult.positionReason) response.positionReason = positionResult.positionReason;
       
@@ -754,8 +760,9 @@ async function createPolygon(params: any): Promise<OperationResult> {
       await applyPolygonProperties(polygon, params, i);
       
       await applyCommonNodeProperties(polygon, params, i);
-      
-      const response = formatNodeResponse(polygon);
+
+      const detail = params.detail || 'standard';
+      const response = createNodeData(polygon, detail, 0, params.parentId);
       if (positionResult.warning) response.warning = positionResult.warning;
       if (positionResult.positionReason) response.positionReason = positionResult.positionReason;
       

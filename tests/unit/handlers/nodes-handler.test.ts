@@ -79,6 +79,100 @@ describe('NodeHandlers - Updated Architecture', () => {
       expect(parsedResult).toEqual(mockResponse);
     });
 
+    test('should handle create with detail parameter - minimal', async () => {
+      const mockResponse = {
+        success: true,
+        data: {
+          id: 'node-123',
+          name: 'Star',
+          type: 'STAR'
+        }
+      };
+      mockSendToPlugin.mockResolvedValue(mockResponse);
+
+      const result = await nodeHandler.handle('figma_nodes', {
+        operation: 'create_star',
+        detail: 'minimal'
+      });
+
+      expect(mockSendToPlugin).toHaveBeenCalledWith({
+        type: 'MANAGE_NODES',
+        payload: expect.objectContaining({
+          operation: 'create_star',
+          detail: 'minimal'
+        })
+      });
+
+      expect(result.isError).toBe(false);
+    });
+
+    test('should handle create with detail parameter - standard', async () => {
+      const mockResponse = {
+        success: true,
+        data: {
+          id: 'node-123',
+          name: 'Rectangle',
+          type: 'RECTANGLE',
+          x: 0,
+          y: 0,
+          width: 100,
+          height: 100
+        }
+      };
+      mockSendToPlugin.mockResolvedValue(mockResponse);
+
+      const result = await nodeHandler.handle('figma_nodes', {
+        operation: 'create_rectangle',
+        detail: 'standard'
+      });
+
+      expect(mockSendToPlugin).toHaveBeenCalledWith({
+        type: 'MANAGE_NODES',
+        payload: expect.objectContaining({
+          operation: 'create_rectangle',
+          detail: 'standard'
+        })
+      });
+
+      expect(result.isError).toBe(false);
+    });
+
+    test('should handle create with detail parameter - detailed', async () => {
+      const mockResponse = {
+        success: true,
+        data: {
+          id: 'node-123',
+          name: 'Ellipse',
+          type: 'ELLIPSE',
+          x: 0,
+          y: 0,
+          width: 100,
+          height: 100,
+          fills: [],
+          strokes: [],
+          effects: [],
+          opacity: 1,
+          rotation: 0
+        }
+      };
+      mockSendToPlugin.mockResolvedValue(mockResponse);
+
+      const result = await nodeHandler.handle('figma_nodes', {
+        operation: 'create_ellipse',
+        detail: 'detailed'
+      });
+
+      expect(mockSendToPlugin).toHaveBeenCalledWith({
+        type: 'MANAGE_NODES',
+        payload: expect.objectContaining({
+          operation: 'create_ellipse',
+          detail: 'detailed'
+        })
+      });
+
+      expect(result.isError).toBe(false);
+    });
+
     test('should handle single node update', async () => {
       const mockResponse = {
         success: true,
